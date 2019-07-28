@@ -1,13 +1,9 @@
 package io.cyonic.gradients.models
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity
-open class Journal(
-    val name: String,
-    val journalEntries: ArrayList<Entry<*>>){
-
-    fun addEntry (newEntry: Entry<*>) : Boolean {
-        return journalEntries.add(newEntry)
-    }
-}
+data class Journal(
+    @PrimaryKey val name: String,
+    var createdAt: Number)

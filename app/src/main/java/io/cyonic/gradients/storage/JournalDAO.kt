@@ -1,17 +1,13 @@
 package io.cyonic.gradients.storage
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import io.cyonic.gradients.models.Entry
 import io.cyonic.gradients.models.Journal
 
 @Dao
-interface JournalDAO {
+interface JournalDAO : BaseDAO<Journal> {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertJournal(journal : Journal)
-
-    @Insert
-    fun insertEntries(vararg entries: Entry<*>)
+    @Query("SELECT * FROM Journal WHERE name = :journalName")
+    abstract fun getJournal(journalName: String) : LiveData<Journal>
 }

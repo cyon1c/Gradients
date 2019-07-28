@@ -1,10 +1,18 @@
 package io.cyonic.gradients.models
 
-import androidx.room.Embedded
-import androidx.room.Entity
+import androidx.room.*
+import androidx.room.ForeignKey.CASCADE
 
-@Entity
-open class Entry<T>(
-    val timeStamp: Number,
-    @Embedded val entryType: Behavior<T>,
-    val value: T? = null)
+@Entity(indices = [Index("journalName")],
+    foreignKeys = [ForeignKey(
+    entity=Journal::class,
+    parentColumns = arrayOf("name"),
+    childColumns = arrayOf("journalName"),
+    onDelete = CASCADE)]
+)
+data class Entry(
+    @PrimaryKey(autoGenerate = true) var id : Int,
+    var journalName: String,
+    var timeStamp: Number,
+    var behaviorName: String,
+    var enteredValue: Int)

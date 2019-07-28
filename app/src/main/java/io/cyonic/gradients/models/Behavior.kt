@@ -1,10 +1,12 @@
 package io.cyonic.gradients.models
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Ignore
+sealed class Behavior(
+    var behaviorName: String = "unknown",
+    var min: Int = -1,
+    var max: Int = 1)
 
-@Entity
-open class Behavior<T>(
-    @ColumnInfo(name = "behavior_type")val name: String,
-    @Ignore val range: Array<T>)
+
+object Mood : Behavior("Mood", -15,15)
+object Medication : Behavior("Medication", 0,1)
+object SleepTime : Behavior("Sleep Time", 0,15)
+object SleepQuality : Behavior("Sleep Quality", -15,15)
